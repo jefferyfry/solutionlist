@@ -41,14 +41,13 @@
     </style>
     <script>
         function search() {
-            // Declare variables
             var input, filter, table, tr, td, i, txtValue;
             input = document.getElementById("search");
             filter = input.value.toUpperCase();
             table = document.getElementById("solutions");
             tr = table.getElementsByTagName("tr");
 
-            // Loop through all table rows, and hide those who don't match the search query
+            var visibleRows = 0;
             for (i = 1; i < tr.length; i++) {
                 tdAll = tr[i].getElementsByTagName("td");
                 txtValue = "";
@@ -59,17 +58,25 @@
                 }
                 if (txtValue && txtValue.toUpperCase().indexOf(filter) > -1) {
                     tr[i].style.display = "";
+                    visibleRows++;
                 } else {
                     tr[i].style.display = "none";
                 }
             }
+            if (visibleRows == 1) {
+                document.getElementById("count").innerText = "1 solution found.";
+            }
+            else {
+                document.getElementById("count").innerText = visibleRows + " solutions found.";
+            }
+
         }
     </script>
 </head>
 <body>
 <input type="text" id="search" onkeyup="search()" placeholder="Search for solutions by keyword, name, type, partner...">
-
-<div id="debug"></div>
+<? var data = getSolutions(); ?>
+<div id="count"><?= data.length ?> solutions found.</div>
 
 <table id="solutions">
     <tr class="header">
@@ -83,8 +90,7 @@
         <th style="width:5%;">Video</th>
         <th style="width:5%;">PRD</th>
     </tr>
-    <? var data = getSolutions(); ?>
-    <? for (var i = 1; i < data.length; i++) { ?>
+    <? for (var i = 0; i < data.length; i++) { ?>
     <tr>
         <? for (var j = 0; j < 4; j++) { ?>
             <td><?= data[i][j] ?></td>
