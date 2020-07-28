@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Partner Engineering Solutions</title>
+    <style>
+        body {
+            font-family: -apple-system,BlinkMacSystemFont,"Segoe UI","Roboto","Oxygen","Ubuntu","Fira Sans","Droid Sans","Helvetica Neue",sans-serif;
+        }
+        #search {
+            background-position: 10px 12px; /* Position the search icon */
+            background-repeat: no-repeat; /* Do not repeat the icon image */
+            width: 35%;
+            font-size: 12px; /* Increase font-size */
+            padding: 10px 10px 10px 10px; /* Add some padding */
+            border: 1px solid #ddd; /* Add a grey border */
+            margin-bottom: 12px; /* Add some space below the input */
+        }
+
+        #solutions {
+            border-collapse: collapse; /* Collapse borders */
+            width: 100%; /* Full-width */
+            border: 1px solid #ddd; /* Add a grey border */
+            font-size: 14px; /* Increase font-size */
+        }
+
+        #solutions th, #solutions td {
+            text-align: left; /* Left-align text */
+            padding: 12px; /* Add padding */
+        }
+
+        #solutions tr {
+            /* Add a bottom border to all table rows */
+            border-bottom: 1px solid #ddd;
+        }
+
+        #solutions tr.header, #solutions tr:hover {
+            /* Add a grey background color to the table header and on hover */
+            background-color: #f1f1f1;
+        }
+    </style>
+    <script>
+        function search() {
+            // Declare variables
+            var input, filter, table, tr, td, i, txtValue;
+            input = document.getElementById("search");
+            filter = input.value.toUpperCase();
+            table = document.getElementById("solutions");
+            tr = table.getElementsByTagName("tr");
+
+            // Loop through all table rows, and hide those who don't match the search query
+            for (i = 1; i < tr.length; i++) {
+                tdAll = tr[i].getElementsByTagName("td");
+                txtValue = "";
+                for(j = 0; j < 4; j++) {
+                    if (tdAll[j]) {
+                        txtValue = txtValue.concat(tdAll[j].textContent || tdAll[j].innerText);
+                    }
+                }
+                if (txtValue && txtValue.toUpperCase().indexOf(filter) > -1) {
+                    tr[i].style.display = "";
+                } else {
+                    tr[i].style.display = "none";
+                }
+            }
+        }
+    </script>
+</head>
+<body>
+<input type="text" id="search" onkeyup="search()" placeholder="Search for solutions by keyword, name, type, partner...">
+
+<div id="debug"></div>
+
+<table id="solutions">
+    <tr class="header">
+        <th style="width:20%;">Name</th>
+        <th style="width:10%;">Type</th>
+        <th style="width:10%;">Partner</th>
+        <th style="width:35%;">Description</th>
+        <th style="width:5%;">Link</th>
+        <th style="width:5%;">Code</th>
+        <th style="width:5%;">Blog</th>
+        <th style="width:5%;">Video</th>
+        <th style="width:5%;">PRD</th>
+    </tr>
+    <? var data = getSolutions(); ?>
+    <? for (var i = 1; i < data.length; i++) { ?>
+    <tr>
+        <? for (var j = 0; j < 4; j++) { ?>
+            <td><?= data[i][j] ?></td>
+        <? } ?>
+        <? if (data[i][4]) { ?>
+        <td><a href="<?= data[i][4] ?>">Get It!</a></td>
+        <? } else { ?>
+        <td></td>
+        <? } ?>
+        <? if (data[i][5]) { ?>
+            <td><a href="<?= data[i][5] ?>">View Code!</a></td>
+        <? } else { ?>
+        <td></td>
+        <? } ?>
+        <? if (data[i][6]) { ?>
+        <td><a href="<?= data[i][6] ?>">Read Blog!</a></td>
+        <? } else { ?>
+        <td></td>
+        <? } ?>
+        <? if (data[i][7]) { ?>
+        <td><a href="<?= data[i][7] ?>">View Video!</a></td>
+        <? } else { ?>
+        <td></td>
+        <? } ?>
+        <? if (data[i][8]) { ?>
+        <td><a href="<?= data[i][8] ?>">Read PRD!</a></td>
+        <? } else { ?>
+        <td></td>
+        <? } ?>
+    </tr>
+    <? } ?>
+</table>
+
+</body>
+</html>
