@@ -27,6 +27,7 @@
         #solutions th, #solutions td {
             text-align: left; /* Left-align text */
             padding: 12px; /* Add padding */
+            font-size: small
         }
 
         #solutions tr {
@@ -37,6 +38,36 @@
         #solutions tr.header, #solutions tr:hover {
             /* Add a grey background color to the table header and on hover */
             background-color: #f1f1f1;
+        }
+
+        /* Tooltip container */
+        .tooltip {
+            position: relative;
+        }
+
+        /* Tooltip text */
+        .tooltiptext {
+            font-size: x-small;
+            visibility: hidden;
+            width: 100px;
+            bottom: 100%;
+            left: 50%;
+            margin-left: -60px;
+            background-color: #f1f1f1;
+            text-align: center;
+            padding: 5px 0;
+            border-radius: 6px;
+            border-style: solid;
+            border-width: thin;
+
+            /* Position the tooltip text - see examples below! */
+            position: absolute;
+            z-index: 1;
+        }
+
+        /* Show the tooltip text when you mouse over the tooltip container */
+        .tooltip:hover .tooltiptext {
+            visibility: visible;
         }
     </style>
     <script>
@@ -81,42 +112,80 @@
 <table id="solutions">
     <tr class="header">
         <th style="width:20%;">Name</th>
-        <th style="width:10%;">Type</th>
-        <th style="width:10%;">Partner</th>
-        <th style="width:35%;">Description</th>
+        <th style="width:5%;">Type</th>
+        <th style="width:5%;">Partner</th>
+        <th style="width:25%;">Description</th>
+        <th style="width:5%;">Messaging</th>
         <th style="width:5%;">Link</th>
         <th style="width:5%;">Code</th>
         <th style="width:5%;">Blog</th>
-        <th style="width:5%;">Video</th>
-        <th style="width:5%;">PRD</th>
+        <th class="tooltip" style="width:5%;">&#9432;&nbsp;Product Video
+            <span class="tooltiptext">A short under 5 minute video that gives an overview of the solution.</span>
+        </th>
+        <th class="tooltip" style="width:5%;">&#9432;&nbsp;Tech Video
+            <span class="tooltiptext">A longer and usually more technical video of the solution.</span>
+        </th>
+        <th class="tooltip" style="width:5%;">&#9432;&nbsp;PRD
+            <span class="tooltiptext">The document that describes the requirements for the solution.</span>
+        </th>
+        <th class="tooltip" style="width:5%;">&#9432;&nbsp;Solution Brief
+            <span class="tooltiptext">This is the solution brief which can be provided to customers and marketing.</span>
+        </th>
+        <th class="tooltip" style="width:5%;">&#9432;&nbsp;Demo Setup
+            <span class="tooltiptext">These are the instructions for setting up a demo environment of the solution.</span>
+        </th>
     </tr>
     <? for (var i = 0; i < data.length; i++) { ?>
     <tr>
         <? for (var j = 0; j < 4; j++) { ?>
+            <? if (data[i][j]) { ?>
             <td><?= data[i][j] ?></td>
+            <? } else { ?>
+            <td></td>
+            <? } ?>
         <? } ?>
         <? if (data[i][4]) { ?>
-        <td><a target="_blank" href="<?= data[i][4] ?>">Get It!</a></td>
+        <td><a target="_blank" href="<?= data[i][4] ?>">Get Messaging!</a></td>
         <? } else { ?>
         <td></td>
         <? } ?>
         <? if (data[i][5]) { ?>
-            <td><a target="_blank" href="<?= data[i][5] ?>">View Code!</a></td>
+            <td><a target="_blank" href="<?= data[i][5] ?>">View It!</a></td>
         <? } else { ?>
         <td></td>
         <? } ?>
         <? if (data[i][6]) { ?>
-        <td><a target="_blank" href="<?= data[i][6] ?>">Read Blog!</a></td>
+        <td><a target="_blank" href="<?= data[i][6] ?>">View Code!</a></td>
         <? } else { ?>
         <td></td>
         <? } ?>
         <? if (data[i][7]) { ?>
-        <td><a target="_blank" href="<?= data[i][7] ?>">View Video!</a></td>
+        <td><a target="_blank" href="<?= data[i][7] ?>">Read Blog!</a></td>
         <? } else { ?>
         <td></td>
         <? } ?>
         <? if (data[i][8]) { ?>
-        <td><a target="_blank" href="<?= data[i][8] ?>">Read PRD!</a></td>
+        <td><a target="_blank" href="<?= data[i][8] ?>">View Product Video!</a></td>
+        <? } else { ?>
+        <td></td>
+        <? } ?>
+        <? if (data[i][9]) { ?>
+        <td><a target="_blank" href="<?= data[i][9] ?>">View Tech Video!</a></td>
+        <? } else { ?>
+        <td></td>
+        <? } ?>
+        <? if (data[i][10]) { ?>
+        <td><a target="_blank" href="<?= data[i][10] ?>">Read PRD!</a></td>
+        <? } else { ?>
+        <td></td>
+        <? } ?>
+        <? if (data[i][11]) { ?>
+        <td><a target="_blank" href="<?= data[i][11] ?>">Read Brief!</a></td>
+        <? } else { ?>
+        <td></td>
+        <? } ?>
+        <? if (data[i][12]) { ?>
+        <td><a target="_blank" href="<?= data[i][12] ?>">Setup Demo!</a></td>
         <? } else { ?>
         <td></td>
         <? } ?>
